@@ -37,8 +37,8 @@ BASE_URL = "https://jsearch.p.rapidapi.com/search"
 # job roles want to collect
 JOB_ROLES=[
     "Data Analyst",
-    "Data Scientist"
-    "Machine Learning Engineer"
+    "Data Scientist",
+    "Machine Learning Engineer",
     "AI Engineer"
 ]
 
