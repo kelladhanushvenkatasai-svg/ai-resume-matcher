@@ -11,6 +11,7 @@ import requests
 import time
 from datetime import datetime
 from dotenv import load_dotenv
+import numpy as np
 
 #Loading .env files
 load_dotenv()
@@ -71,7 +72,6 @@ def fetch_jobs_for_role(role: str, pages: int) -> list:
             response.raise_for_status()
 
             data = response.json()
-            print(f"API Response: {data}") 
             jobs = data.get('data',[])
 
 
@@ -126,6 +126,11 @@ def clean_jobs(df: pd.DataFrame) -> pd.DataFrame:
 
     # Remove jobs with empty descriptions
     df = df[df["description"].str.len() > 100]
+    # Replace NaN with None for database compatibility
+    df = df.replace({np.nan: None})
+    
+    # Fill missing descriptions with empty string
+    df['description'] = df['description'].fillna('')
 
     # Clean text
     df["title"]       = df["title"].str.strip().str.title()
